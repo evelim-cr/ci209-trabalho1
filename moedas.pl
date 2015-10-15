@@ -1,14 +1,3 @@
-% moedas(0, []) :- !.
-% moedas (N, [(_P1, _P2, _P3, _P4, _P5, _P6, P7 ))
-
-
-%% pesa1([M1,M2,M3,M4,M5,M6,M7,M8|_]) :-
-%% 	...
-
-%% moeda_diferente(Moedas, Posicao, Peso) :-
-%% 	pesa1(Moedas).
-
-
 mais_pesado([], [], S1, S2) :- 
 	S1 > S2.
 mais_pesado([V1|T1], [V2|T2], S1, S2) :-
@@ -51,7 +40,6 @@ moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,_,_,_], 7, menos) :-
 	mais_pesado([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).	
 %------------------------------------
 
-
 %posicao 1 mais pesada
 moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,_,_,_], 1, mais) :-
 	mais_pesado([M1], [M2], 0, 0),
@@ -64,7 +52,6 @@ moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,_,_,_], 2, mais) :-
 	igual([M3,M5,M6], [M4,M7,M8], 0, 0),
 	mais_pesado([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).
 %-------------------------------------
-%
 
 %posicao 6 mais leve 
 moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,_,_,_], 6, menos) :-
@@ -86,7 +73,6 @@ moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,_,_,_], 5, menos) :-
 					
 %-----------------------------------
 
-
 %posicao11 mais leve 
 moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,M10,M11,M12], 11, menos) :-
 	mais_pesado([M10], [M11], 0, 0),
@@ -106,9 +92,8 @@ moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,M10,M11,M12], 10, menos) :-
 	igual([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).	
 %------------------------------------
 
-
 %posicao 9 mais leve
-moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 9, mais) :-
+moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 9, menos) :-
 	mais_pesado([M5], [M9], 0, 0),
 	igual([M6,M7,M8], [M10,M11,M12], 0, 0),
 	igual([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).
@@ -119,7 +104,6 @@ moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 9, mais) :-
 	igual([M6,M7,M8], [M10,M11,M12], 0, 0),
 	igual([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).
 %-------------------------------------
-%
 
 %posicao 10 mais pesada 
 moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,M10,M11,M12], 10, mais) :-
@@ -140,7 +124,6 @@ moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,M10,M11,M12], 11, mais) :-
 	igual([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).
 
 %------------------------------------
-
 
 %posicao 5 mais pesada
 moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,_,_,_], 5, mais) :-
