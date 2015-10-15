@@ -1,184 +1,153 @@
-mais_pesado([], [], S1, S2) :- 
-	S1 > S2.
-mais_pesado([V1|T1], [V2|T2], S1, S2) :-
-	NovoS1 is S1+V1,
-	NovoS2 is S2+V2,
-	mais_pesado(T1, T2, NovoS1, NovoS2).
+pesa([], [], 0, 0) :- ! .
 
-mais_leve([], [], S1, S2) :- 
-	S1 < S2.
-mais_leve([V1|T1], [V2|T2], S1, S2) :-
-	NovoS1 is S1+V1,
-	NovoS2 is S2+V2,
-	mais_leve(T1, T2, NovoS1, NovoS2).
-
-igual([], [], S1, S2) :- 
-	S1 =:= S2.
-igual([V1|T1], [V2|T2], S1, S2) :-
-	NovoS1 is S1+V1,
-	NovoS2 is S2+V2,
-	igual(T1, T2, NovoS1, NovoS2).				
-
-%regras baseadas na logica descoberta para solucao do problema
-
-%posicao 8 mais leve 
-moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,_,_,_], 8, menos) :-
-	mais_pesado([M7], [M8], 0, 0),
-	mais_pesado([M3,M5,M6], [M4,M7,M8], 0, 0),
-	mais_pesado([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).
-
-%posicao 3 mais pesada 
-moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,_,_,_], 3, mais) :-
-	igual([M7], [M8], 0, 0),
-	mais_pesado([M3,M5,M6], [M4,M7,M8], 0, 0),
-	mais_pesado([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).
-
-%posicao 7 mais leve 
-moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,_,_,_], 7, menos) :-
-	mais_leve([M7], [M8], 0, 0),
-	mais_pesado([M3,M5,M6], [M4,M7,M8], 0, 0),
-	mais_pesado([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).	
-%------------------------------------
-
-%posicao 1 mais pesada
-moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,_,_,_], 1, mais) :-
-	mais_pesado([M1], [M2], 0, 0),
-	igual([M3,M5,M6], [M4,M7,M8], 0, 0),
-	mais_pesado([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).
-
-%posicao 2 mais pesada
-moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,_,_,_], 2, mais) :-
-	mais_leve([M1], [M2], 0, 0),
-	igual([M3,M5,M6], [M4,M7,M8], 0, 0),
-	mais_pesado([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).
-%-------------------------------------
-
-%posicao 6 mais leve 
-moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,_,_,_], 6, menos) :-
-	mais_pesado([M5], [M6], 0, 0),
-	mais_leve([M3,M5,M6], [M4,M7,M8], 0, 0),
-	mais_pesado([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).
-
-%posicao 4 mais pesada 
-moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,_,_,_], 4, mais) :-
-	igual([M5], [M6], 0, 0),
-	mais_leve([M3,M5,M6], [M4,M7,M8], 0, 0),
-	mais_pesado([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).
-
-%posicao 5 mais leve 
-moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,_,_,_], 5, menos) :-
-	mais_leve([M5], [M6], 0, 0),
-	mais_leve([M3,M5,M6], [M4,M7,M8], 0, 0),
-	mais_pesado([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).	
-					
-%-----------------------------------
-
-%posicao11 mais leve 
-moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,M10,M11,M12], 11, menos) :-
-	mais_pesado([M10], [M11], 0, 0),
-	mais_pesado([M6,M7,M8], [M10,M11,M12], 0, 0),
-	igual([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).
-
-%posicao 12 mais leve 
-moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,M10,M11,M12], 12, menos) :-
-	igual([M10], [M11], 0, 0),
-	mais_pesado([M6,M7,M8], [M10,M11,M12], 0, 0),
-	igual([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).
-
-%posicao 10 mais leve 
-moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,M10,M11,M12], 10, menos) :-
-	mais_leve([M10], [M11], 0, 0),
-	mais_pesado([M6,M7,M8], [M10,M11,M12], 0, 0),
-	igual([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).	
-%------------------------------------
-
-%posicao 9 mais leve
-moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 9, menos) :-
-	mais_pesado([M5], [M9], 0, 0),
-	igual([M6,M7,M8], [M10,M11,M12], 0, 0),
-	igual([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).
-
-%posicao 9 mais pesada
-moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 9, mais) :-
-	mais_leve([M5], [M9], 0, 0),
-	igual([M6,M7,M8], [M10,M11,M12], 0, 0),
-	igual([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).
-%-------------------------------------
-
-%posicao 10 mais pesada 
-moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,M10,M11,M12], 10, mais) :-
-	mais_pesado([M10], [M11], 0, 0),
-	mais_leve([M6,M7,M8], [M10,M11,M12], 0, 0),
-	igual([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).
-
-%posicao 12 mais pesada 
-moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,M10,M11,M12], 12, mais) :-
-	igual([M10], [M11], 0, 0),
-	mais_leve([M6,M7,M8], [M10,M11,M12], 0, 0),
-	igual([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).
-
-%posicao 11 mais pesada
-moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,M10,M11,M12], 11, mais) :-
-	mais_leve([M10], [M11], 0, 0),
-	mais_leve([M6,M7,M8], [M10,M11,M12], 0, 0),
-	igual([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).
-
-%------------------------------------
-
-%posicao 5 mais pesada
-moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,_,_,_], 5, mais) :-
-	mais_pesado([M5], [M6], 0, 0),
-	mais_pesado([M3,M5,M6], [M4,M7,M8], 0, 0),
-	mais_leve([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).
-
-%posicao 4 mais leve 
-moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,_,_,_], 4, menos) :-
-	igual([M5], [M6], 0, 0),
-	mais_pesado([M3,M5,M6], [M4,M7,M8], 0, 0),
-	mais_leve([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).
-
-%posicao 6 mais pesada 
-moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,_,_,_], 6, mais) :-
-	mais_leve([M5], [M6], 0, 0),
-	mais_pesado([M3,M5,M6], [M4,M7,M8], 0, 0),
-	mais_leve([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).	
-					
-%-----------------------------------	
-
-%posicao 2 mais leve
-moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,_,_,_], 2, menos) :-
-	mais_pesado([M1], [M2], 0, 0),
-	igual([M3,M5,M6], [M4,M7,M8], 0, 0),
-	mais_leve([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).
-
-%posicao 1 mais leve
-moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,_,_,_], 1, menos) :-
-	mais_leve([M1], [M2], 0, 0),
-	igual([M3,M5,M6], [M4,M7,M8], 0, 0),
-	mais_leve([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).
-%-------------------------------------
-
-%posicao 7 mais pesada 
-moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,_,_,_], 7, mais) :-
-	mais_pesado([M7], [M8], 0, 0),
-	mais_leve([M3,M5,M6], [M4,M7,M8], 0, 0),
-	mais_leve([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).
-
-%posicao 3 mais leve
-moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,_,_,_], 3, menos) :-
-	igual([M7], [M8], 0, 0),
-	mais_leve([M3,M5,M6], [M4,M7,M8], 0, 0),
-	mais_leve([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).
-
-%posicao 8 mais pesada 
-moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,_,_,_,_], 8, mais) :-
-	mais_leve([M7], [M8], 0, 0),
-	mais_leve([M3,M5,M6], [M4,M7,M8], 0, 0),
-	mais_leve([M1,M2,M3,M4], [M5, M6, M7, M8], 0, 0).	
-%------------------------------------
+pesa([V1|T1], [V2|T2], S1, S2) :-
+	pesa(T1, T2, NovoS1, NovoS2),
+	S1 is NovoS1+V1,
+	S2 is NovoS2+V2.
 
 
+moeda_diferente([M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], Posicao, Peso) :-
+	pesa([M1,M2,M3,M4], [M5, M6, M7, M8], Pesagem1A, Pesagem1B),
+	verifica1(Pesagem1A, Pesagem1B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], Posicao, Peso).
 
 
+% verifica o resultado da primeira pesagem
+verifica1(Pesagem1A, Pesagem1B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], Posicao, Peso) :-
+	Pesagem1A > Pesagem1B,
+	pesa([M3,M5,M6], [M4,M7,M8], Pesagem2A, Pesagem2B),
+	verifica2(Pesagem2A, Pesagem2B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], Posicao, Peso, [maior]).
 
-	
+verifica1(Pesagem1A, Pesagem1B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], Posicao, Peso) :-
+	Pesagem1A =:= Pesagem1B,
+	pesa([M6,M7,M8], [M10,M11,M12], Pesagem2A, Pesagem2B),
+	verifica2(Pesagem2A, Pesagem2B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], Posicao, Peso, [igual]).
+
+verifica1(Pesagem1A, Pesagem1B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], Posicao, Peso) :-
+	Pesagem1A < Pesagem1B,
+	pesa([M3,M5,M6], [M4,M7,M8], Pesagem2A, Pesagem2B),
+	verifica2(Pesagem2A, Pesagem2B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], Posicao, Peso, [menor]).
+
+
+% verifica o resultado da segunda pesagem
+verifica2(Pesagem2A, Pesagem2B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], Posicao, Peso, [maior]) :-
+	Pesagem2A > Pesagem2B,
+	pesa([M7], [M8], Pesagem3A, Pesagem3B),
+	verifica3(Pesagem3A, Pesagem3B, L, Posicao, Peso, [maior,maior]).
+
+verifica2(Pesagem2A, Pesagem2B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], Posicao, Peso, [maior]) :-
+	Pesagem2A =:= Pesagem2B,
+	pesa([M1], [M2], Pesagem3A, Pesagem3B),
+	verifica3(Pesagem3A, Pesagem3B, L, Posicao, Peso, [maior,igual]).
+
+verifica2(Pesagem2A, Pesagem2B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], Posicao, Peso, [maior]) :-
+	Pesagem2A < Pesagem2B,
+	pesa([M5], [M6], Pesagem3A, Pesagem3B),
+	verifica3(Pesagem3A, Pesagem3B, L, Posicao, Peso, [maior,menor]).
+
+
+verifica2(Pesagem2A, Pesagem2B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], Posicao, Peso, [igual]) :-
+	Pesagem2A > Pesagem2B,
+	pesa([M10], [M11], Pesagem3A, Pesagem3B),
+	verifica3(Pesagem3A, Pesagem3B, L, Posicao, Peso, [igual,maior]).
+
+verifica2(Pesagem2A, Pesagem2B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], Posicao, Peso, [igual]) :-
+	Pesagem2A =:= Pesagem2B,
+	pesa([M5], [M9], Pesagem3A, Pesagem3B),
+	verifica3(Pesagem3A, Pesagem3B, L, Posicao, Peso, [igual,igual]).
+
+verifica2(Pesagem2A, Pesagem2B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], Posicao, Peso, [igual]) :-
+	Pesagem2A < Pesagem2B,
+	pesa([M10], [M11], Pesagem3A, Pesagem3B),
+	verifica3(Pesagem3A, Pesagem3B, L, Posicao, Peso, [igual,menor]).
+
+
+verifica2(Pesagem2A, Pesagem2B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], Posicao, Peso, [menor]) :-
+	Pesagem2A > Pesagem2B,
+	pesa([M5], [M6], Pesagem3A, Pesagem3B),
+	verifica3(Pesagem3A, Pesagem3B, L, Posicao, Peso, [menor,maior]).
+
+verifica2(Pesagem2A, Pesagem2B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], Posicao, Peso, [menor]) :-
+	Pesagem2A =:= Pesagem2B,
+	pesa([M1], [M2], Pesagem3A, Pesagem3B),
+	verifica3(Pesagem3A, Pesagem3B, L, Posicao, Peso, [menor,igual]).
+
+verifica2(Pesagem2A, Pesagem2B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], Posicao, Peso, [menor]) :-
+	Pesagem2A < Pesagem2B,
+	pesa([M7], [M8], Pesagem3A, Pesagem3B),
+	verifica3(Pesagem3A, Pesagem3B, L, Posicao, Peso, [menor,menor]).
+
+
+% verifica o resultado da terceira pesagem
+verifica3(Pesagem3A, Pesagem3B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 8, menos, [maior,maior]) :-
+	Pesagem3A > Pesagem3B.
+
+verifica3(Pesagem3A, Pesagem3B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 3, mais, [maior,maior]) :-
+	Pesagem3A =:= Pesagem3B.
+
+verifica3(Pesagem3A, Pesagem3B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 7, menos, [maior,maior]) :-
+	Pesagem3A < Pesagem3B.
+
+verifica3(Pesagem3A, Pesagem3B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 1, mais, [maior,igual]) :-
+	Pesagem3A > Pesagem3B.
+
+verifica3(Pesagem3A, Pesagem3B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 2, mais, [maior,igual]) :-
+	Pesagem3A < Pesagem3B.
+
+verifica3(Pesagem3A, Pesagem3B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 6, menos, [maior,menor]) :-
+	Pesagem3A > Pesagem3B.
+
+verifica3(Pesagem3A, Pesagem3B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 4, mais, [maior,menor]) :-
+	Pesagem3A =:= Pesagem3B.
+
+verifica3(Pesagem3A, Pesagem3B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 5, menos, [maior,menor]) :-
+	Pesagem3A < Pesagem3B.
+
+
+verifica3(Pesagem3A, Pesagem3B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 11, menos, [igual,maior]) :-
+	Pesagem3A > Pesagem3B.
+
+verifica3(Pesagem3A, Pesagem3B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 12, menos, [igual,maior]) :-
+	Pesagem3A =:= Pesagem3B.
+
+verifica3(Pesagem3A, Pesagem3B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 10, menos, [igual,maior]) :-
+	Pesagem3A < Pesagem3B.
+
+verifica3(Pesagem3A, Pesagem3B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 9, menos, [igual,igual]) :-
+	Pesagem3A > Pesagem3B.
+
+verifica3(Pesagem3A, Pesagem3B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 9, mais, [igual,igual]) :-
+	Pesagem3A < Pesagem3B.
+
+verifica3(Pesagem3A, Pesagem3B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 10, mais, [igual,menor]) :-
+	Pesagem3A > Pesagem3B.
+
+verifica3(Pesagem3A, Pesagem3B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 12, mais, [igual,menor]) :-
+	Pesagem3A =:= Pesagem3B.
+
+verifica3(Pesagem3A, Pesagem3B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 11, mais, [igual,menor]) :-
+	Pesagem3A < Pesagem3B.
+
+
+verifica3(Pesagem3A, Pesagem3B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 5, mais, [menor,maior]) :-
+	Pesagem3A > Pesagem3B.
+
+verifica3(Pesagem3A, Pesagem3B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 4, menos, [menor,maior]) :-
+	Pesagem3A =:= Pesagem3B.
+
+verifica3(Pesagem3A, Pesagem3B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 6, mais, [menor,maior]) :-
+	Pesagem3A < Pesagem3B.
+
+verifica3(Pesagem3A, Pesagem3B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 2, menos, [menor,igual]) :-
+	Pesagem3A > Pesagem3B.
+
+verifica3(Pesagem3A, Pesagem3B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 1, menos, [menor,igual]) :-
+	Pesagem3A < Pesagem3B.
+
+verifica3(Pesagem3A, Pesagem3B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 7, mais, [menor,menor]) :-
+	Pesagem3A > Pesagem3B.
+
+verifica3(Pesagem3A, Pesagem3B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 3, menos, [menor,menor]) :-
+	Pesagem3A =:= Pesagem3B.
+
+verifica3(Pesagem3A, Pesagem3B, [M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12], 8, mais, [menor,menor]) :-
+	Pesagem3A < Pesagem3B.
